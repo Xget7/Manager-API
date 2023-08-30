@@ -14,9 +14,16 @@ const machineSurveySchema: Schema = new mongoose.Schema({
     structuralPart: { type: partSurveySchema },
     generalObservation : {type: String},
     endTime: { type: Date, required: true },
-  }, {
-    timestamps: true
-  });
+  },{
+    toJSON: {
+      transform(doc, ret){
+        delete ret.__v;
+        delete ret.createdAt;
+        delete ret.updatedAt;
+    }
+  },
+  timestamps: false
+})
   
 
 export default machineSurveySchema;

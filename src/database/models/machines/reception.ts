@@ -26,9 +26,16 @@ const receptionSchema = new mongoose.Schema({
     enum: ['BudgetSent', 'BudgetApproved', 'Working', 'Finished', 'Canceled'],
     required: true
   },
-}, {
-  timestamps: true
-});
+},{
+  toJSON: {
+    transform(doc, ret){
+      delete ret.__v;
+      delete ret.createdAt;
+      delete ret.updatedAt;
+  }
+},
+timestamps: false
+})
 
 
 

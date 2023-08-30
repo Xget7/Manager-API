@@ -33,7 +33,7 @@ class MachineRepository {
         }
     }
     async GetMachinesByClientId(clientId) {
-        return exports.MachineModel.find({ uid: clientId });
+        return exports.MachineModel.find({ clientId: clientId });
     }
     async DeleteMachine(id) {
         try {

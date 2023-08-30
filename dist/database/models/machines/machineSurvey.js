@@ -18,7 +18,14 @@ const machineSurveySchema = new mongoose_1.default.Schema({
     generalObservation: { type: String },
     endTime: { type: Date, required: true },
 }, {
-    timestamps: true
+    toJSON: {
+        transform(doc, ret) {
+            delete ret.__v;
+            delete ret.createdAt;
+            delete ret.updatedAt;
+        }
+    },
+    timestamps: false
 });
 exports.default = machineSurveySchema;
 //# sourceMappingURL=machineSurvey.js.map

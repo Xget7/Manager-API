@@ -29,24 +29,28 @@ export const GetMachine = async (req: express.Request, res: express.Response) =>
 
 export const CreateMachine = async (req: express.Request, res: express.Response) => {
     try {
-      const { reception, machineSurvey } = req.body; // Adjust the field names accordingly
+      const { reception, machineSurvey , client_id } = req.body; // Adjust the field names accordingly
   
       if (!reception) {
         return res.status(400).json({ message: "Faltan campos obligatorios" });
       }
-  
+
+
       const machineData = {
+        clientId : client_id,
         reception: reception,
         machineSurvey: machineSurvey || null, // Adjust for your schema
       };
+
+      console.log("Machine data: " , machineData);
+      
   
       const newMachine = await machineService.CreateMachine(machineData);
   
       const modifiedResponse = {
-        id: newMachine._id,
+        clientId : newMachine.clientId,
         reception: newMachine.reception,
         machineSurvey: newMachine.machineSurvey,
-        // Add other fields as needed
       };
   
       return res.status(200).json(modifiedResponse);

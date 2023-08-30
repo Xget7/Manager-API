@@ -31,7 +31,14 @@ const receptionSchema = new mongoose_1.default.Schema({
         required: true
     },
 }, {
-    timestamps: true
+    toJSON: {
+        transform(doc, ret) {
+            delete ret.__v;
+            delete ret.createdAt;
+            delete ret.updatedAt;
+        }
+    },
+    timestamps: false
 });
 exports.default = receptionSchema;
 //# sourceMappingURL=reception.js.map

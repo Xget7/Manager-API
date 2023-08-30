@@ -40,7 +40,7 @@ class MachineRepository {
       }
      
      async GetMachinesByClientId(clientId: string) {
-          return MachineModel.find({ uid: clientId });
+          return MachineModel.find({ clientId: clientId });
      }
      
      async DeleteMachine(id : String){

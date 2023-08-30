@@ -7,12 +7,20 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const reception_1 = __importDefault(require("./../machines/reception"));
 const machineSurvey_1 = __importDefault(require("../machines/machineSurvey"));
 const MachineSchema = new mongoose_1.default.Schema({
-    uid: { type: String, required: true },
     clientId: { type: String, required: true },
     reception: { type: reception_1.default, required: true },
     machineSurvey: { type: machineSurvey_1.default }, // Make sure machineSurveySchema is defined
 }, {
-    timestamps: true
+    toJSON: {
+        transform(doc, ret) {
+            ret.id = ret._id;
+            delete ret.__v;
+            delete ret._id;
+            delete ret.createdAt;
+            delete ret.updatedAt;
+        }
+    },
+    timestamps: false
 });
 exports.default = MachineSchema;
 //# sourceMappingURL=machine.js.map
