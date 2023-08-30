@@ -37,6 +37,15 @@ class StoreService {
             throw new app_errors_1.APIError('Error deleting store', err);
         }
     }
+    async AddDeviceToStore(deviceId, storeId) {
+        try {
+            const updatedStore = await this.repository.addDeviceToStore(deviceId, storeId);
+            return updatedStore;
+        }
+        catch (err) {
+            throw new app_errors_1.APIError('Error adding device to Store', err);
+        }
+    }
     async UpdateStoreById(id, values) {
         try {
             const updatedStore = await this.repository.updateStore(id, values);

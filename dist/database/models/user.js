@@ -8,9 +8,9 @@ const mongoose_1 = __importDefault(require("mongoose"));
 exports.UserSchema = new mongoose_1.default.Schema({
     username: { type: String, required: true },
     email: { type: String, required: true },
-    phoneNo: { type: String },
-    stores: { type: [String] },
     salt: { type: String },
+    isWorker: { type: Boolean, required: true },
+    pendingMachines: { type: [String] },
     password: { type: String },
 }, {
     toJSON: {

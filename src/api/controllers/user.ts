@@ -21,8 +21,8 @@ export const GetUser = async (req: express.Request, res: express.Response) => {
                id: existingUser._id,
                username: existingUser.username,
                email: existingUser.email,
-               phoneNo: existingUser.phoneNo,
-               stores: existingUser.stores,
+               isWorker: existingUser.isWorker,
+               pendingMachines: existingUser.pendingMachines,
           };
 
           return res.status(200).json(modifiedUser);

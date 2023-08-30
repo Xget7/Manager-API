@@ -28,17 +28,17 @@ export const SingIn = async (req: express.Request, res: express.Response) => {
                return res.status(200).json({id: user._id, token })
           } 
 
-          return res.status(400).json({ message: "Email o contraseña incorrecto" });
+          return res.status(400).json({ message: "Email o contraseña incorrecto"});
      } catch (error) {
           console.log(error);
-          return res.status(400).json({ message: "Error al intentar autenticar usuario" });
+          return res.status(400).json({ message: "Error al intentar autenticar usuario"});
      }
 }
 
 
 export const SignUp = async (req: express.Request, res: express.Response) => {
      try {
-       const { email, password, username, phoneNo } = req.body;
+       const { email, password, username , isWorker } = req.body;
    
        if (!email || !password) {
           return res.status(400).json({ message: "Error de validación" }); 
@@ -47,8 +47,8 @@ export const SignUp = async (req: express.Request, res: express.Response) => {
        const existingUser =  await userService.GetUserByEmail(email);
    
        if (existingUser) {
-          return res.status(400).json({ message: "Correo electrónico ya en uso" });
-     }
+          return res.status(400).json({ message: "Correo electrónico ya en uso"});
+       }
    
        const salt = await GenerateSalt();
        const userPassword = await GeneratePassword(password, salt);
@@ -58,7 +58,7 @@ export const SignUp = async (req: express.Request, res: express.Response) => {
          username: username,
          salt: salt,
          password: userPassword,
-         phoneNo: phoneNo,
+         isWorker: isWorker
        });
    
        const token = await GenerateSignature({
@@ -68,12 +68,10 @@ export const SignUp = async (req: express.Request, res: express.Response) => {
    
        return res.status(200).json({ id: createdUser._id, token: token });
      } catch (error) {
-
           if (error.name === "ValidationError") {
                const errorMessage = extractValidationErrorMessage(error);
                return res.status(400).json({ message: errorMessage }); 
           }
-
      console.log(error);
      return res.status(400).json({ message: "Error al intentar autenticar usuario" });
      }

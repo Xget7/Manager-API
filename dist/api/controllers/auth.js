@@ -32,7 +32,7 @@ const SingIn = async (req, res) => {
 exports.SingIn = SingIn;
 const SignUp = async (req, res) => {
     try {
-        const { email, password, username, phoneNo } = req.body;
+        const { email, password, username, isWorker } = req.body;
         if (!email || !password) {
             return res.status(400).json({ message: "Error de validación" });
         }
@@ -47,7 +47,7 @@ const SignUp = async (req, res) => {
             username: username,
             salt: salt,
             password: userPassword,
-            phoneNo: phoneNo,
+            isWorker: isWorker
         });
         const token = await (0, index_1.GenerateSignature)({
             email: email,

@@ -20,8 +20,8 @@ const GetUser = async (req, res) => {
             id: existingUser._id,
             username: existingUser.username,
             email: existingUser.email,
-            phoneNo: existingUser.phoneNo,
-            stores: existingUser.stores,
+            isWorker: existingUser.isWorker,
+            pendingMachines: existingUser.pendingMachines,
         };
         return res.status(200).json(modifiedUser);
     }

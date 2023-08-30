@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const user_repository_1 = __importDefault(require("../database/repository/user-repository"));
+const user_repository_1 = __importDefault(require("../database/repository/users/user-repository"));
 const app_errors_1 = require("../utils/app-errors");
 class UserService {
     repository;
@@ -16,7 +16,7 @@ class UserService {
             return existingUser;
         }
         catch (err) {
-            throw new app_errors_1.APIError('Data Not found', err);
+            throw new app_errors_1.APIError('Error al intentar crear usuario.', err);
         }
     }
     async FindUserById(id) {
@@ -25,7 +25,7 @@ class UserService {
             return existingUser;
         }
         catch (err) {
-            throw new app_errors_1.APIError('Data Not found', err);
+            throw new app_errors_1.APIError('Usuario no encontrado', err);
         }
     }
     async DeleteUserById(id) {
@@ -34,7 +34,7 @@ class UserService {
             return existingUser;
         }
         catch (err) {
-            throw new app_errors_1.APIError('Data Not found', err);
+            throw new app_errors_1.APIError('Error al intentar eliminar el usuario.', err);
         }
     }
     async UpdateUserById(id, values) {
@@ -43,16 +43,16 @@ class UserService {
             return existingUser;
         }
         catch (err) {
-            throw new app_errors_1.APIError('Data Not found', err);
+            throw new app_errors_1.APIError('Error al intentar actualizar los datos del usuario.', err);
         }
     }
-    async AddStoreToUser(userId, storeId) {
+    async AddMachineToUser(userId, machineUid) {
         try {
-            const result = await this.repository.addStoreToUser(userId, storeId);
+            const result = await this.repository.addMachineToUser(userId, machineUid);
             return result;
         }
         catch (err) {
-            console.log("error adding store to user");
+            throw new app_errors_1.APIError('Error al asignar maquina.', err);
         }
     }
     async GetUserByEmail(email) {
@@ -61,7 +61,7 @@ class UserService {
             return existingUser;
         }
         catch (err) {
-            throw new app_errors_1.APIError('Data Not found', err);
+            throw new app_errors_1.APIError('Usuario no encontrado', err);
         }
     }
 }

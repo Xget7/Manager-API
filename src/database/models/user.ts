@@ -3,9 +3,9 @@ import mongoose from "mongoose";
 export const UserSchema = new mongoose.Schema({
      username: {type : String , required: true},
      email : {type : String, required: true},
-     phoneNo : {type : String},
-     stores : {type : [String]},
      salt: {type : String},
+     isWorker : {type : Boolean , required : true},
+     pendingMachines : { type : [String]},
      password: {type : String},
 },{
   toJSON: {
