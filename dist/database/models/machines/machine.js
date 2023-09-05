@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const reception_1 = __importDefault(require("./../machines/reception"));
 const machineSurvey_1 = __importDefault(require("../machines/machineSurvey"));
-const MachineSchema = new mongoose_1.default.Schema({
+const SurveySchema = new mongoose_1.default.Schema({
     clientId: { type: String, required: true },
     reception: { type: reception_1.default, required: true },
     machineSurvey: { type: machineSurvey_1.default }, // Make sure machineSurveySchema is defined
@@ -22,5 +22,5 @@ const MachineSchema = new mongoose_1.default.Schema({
     },
     timestamps: false
 });
-exports.default = MachineSchema;
+exports.default = SurveySchema;
 //# sourceMappingURL=machine.js.map

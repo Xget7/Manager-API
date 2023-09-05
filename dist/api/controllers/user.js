@@ -21,7 +21,7 @@ const GetUser = async (req, res) => {
             username: existingUser.username,
             email: existingUser.email,
             isWorker: existingUser.isWorker,
-            pendingMachines: existingUser.pendingMachines,
+            pendingSurveys: existingUser.pendingSurveys,
         };
         return res.status(200).json(modifiedUser);
     }

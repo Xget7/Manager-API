@@ -1,7 +1,7 @@
 import express  from 'express';
 import authentication  from './auth';
 import user  from './user';
-import store  from './machines';
+import store  from './survey';
 
 
 const router = express.Router();

@@ -9,12 +9,11 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const user_1 = require("../../models/user");
 exports.UserModel = mongoose_1.default.model('User', user_1.UserSchema);
 class WorkshopUserRepository extends user_repository_1.default {
-    async assingToMachineSurvey(machineUid, userId) {
-        // Implement your workshop-specific logic here
+    async assingSurveyToWorker(machineUid, userId) {
         try {
             const user = await exports.UserModel.findById(userId);
             if (user) {
-                user.pendingMachines.push(machineUid);
+                user.pendingSurveys.push(machineUid);
                 await user.save();
                 return true;
             }

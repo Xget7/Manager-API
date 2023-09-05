@@ -23,21 +23,6 @@ class UserRepository {
     async FindUserById(id) {
         return exports.UserModel.findById(id);
     }
-    async addMachineToUser(userId, machineUid) {
-        try {
-            const user = await exports.UserModel.findById(userId);
-            if (user) {
-                console.log("we have user");
-                user.pendingMachines.push(machineUid);
-                await user.save();
-                return true;
-            }
-        }
-        catch (err) {
-            console.log("error adding store to user");
-        }
-        return false;
-    }
     async deleteUserById(id) {
         return exports.UserModel.findByIdAndDelete(id);
     }

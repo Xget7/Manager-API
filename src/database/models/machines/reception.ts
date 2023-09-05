@@ -5,6 +5,7 @@ const receptionSchema = new mongoose.Schema({
   machineName: { type: String, required: true },
   machineModel: { type: String, required: true },
   receptionTime: { type: Date, required: true },
+  isForSale : { type: Date, required: true },
   workType: { type: String, enum: ['Maintenance', 'Repair'], required: true },
   machineStatus: { type: String, enum: ['Clean', 'Regular', 'Dirty'], required: true },
   powerCable: { type: Boolean, required: true },

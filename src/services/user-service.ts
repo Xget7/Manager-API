@@ -1,12 +1,15 @@
 
 
 import UserRepository from '../database/repository/users/user-repository';
+import {WorkshopUserRepository} from '../database/repository/users/workshop-user-repository';
 import { APIError, BadRequestError } from '../utils/app-errors';
 
 class UserService {
   private repository: UserRepository;
+  private workerRepo : WorkshopUserRepository;
 
   constructor() {
+    this.workerRepo = new WorkshopUserRepository();
     this.repository = new UserRepository();
   }
 
@@ -48,12 +51,12 @@ class UserService {
     }
   }
 
-  async AddMachineToUser(userId: string, machineUid: string) {
+  async AddSurveyToUser(userId: string, machineUid: string) {
     try {
-      const result = await this.repository.addMachineToUser(userId,machineUid);
+      const result = await this.workerRepo.assingSurveyToWorker(machineUid,userId)
       return result
     } catch (err) {
-      throw new APIError('Error al asignar maquina.', err);
+      throw new APIError('Error al asignar planilla.', err);
     }
 }
 

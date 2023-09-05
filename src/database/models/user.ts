@@ -5,7 +5,7 @@ export const UserSchema = new mongoose.Schema({
      email : {type : String, required: true},
      salt: {type : String},
      isWorker : {type : Boolean , required : true},
-     pendingMachines : { type : [String]},
+     pendingSurveys : { type : [String]},
      password: {type : String},
 },{
   toJSON: {

@@ -4,10 +4,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_repository_1 = __importDefault(require("../database/repository/users/user-repository"));
+const workshop_user_repository_1 = require("../database/repository/users/workshop-user-repository");
 const app_errors_1 = require("../utils/app-errors");
 class UserService {
     repository;
+    workerRepo;
     constructor() {
+        this.workerRepo = new workshop_user_repository_1.WorkshopUserRepository();
         this.repository = new user_repository_1.default();
     }
     async CreateUser(values) {
@@ -46,13 +49,13 @@ class UserService {
             throw new app_errors_1.APIError('Error al intentar actualizar los datos del usuario.', err);
         }
     }
-    async AddMachineToUser(userId, machineUid) {
+    async AddSurveyToUser(userId, machineUid) {
         try {
-            const result = await this.repository.addMachineToUser(userId, machineUid);
+            const result = await this.workerRepo.assingSurveyToWorker(machineUid, userId);
             return result;
         }
         catch (err) {
-            throw new app_errors_1.APIError('Error al asignar maquina.', err);
+            throw new app_errors_1.APIError('Error al asignar planilla.', err);
         }
     }
     async GetUserByEmail(email) {
