@@ -5,9 +5,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const partSurveySchema = new mongoose_1.default.Schema({
-    questions: [{ type: String }],
-    observations: { type: String },
-    photos: [{ type: String }],
+    name: { type: String },
+    diagnostic: [
+        {
+            question: { type: String },
+            response: { type: String },
+            photos: { type: String },
+        },
+    ],
+    observation: { type: String },
 });
 exports.default = partSurveySchema;
 //# sourceMappingURL=partSurvey.js.map

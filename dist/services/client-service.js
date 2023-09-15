@@ -22,10 +22,11 @@ class ClientService {
     async FindClientById(uid) {
         try {
             const existingClient = await this.repository.FindClientByUid(uid);
+            console.log("Second step client:", existingClient);
             return existingClient;
         }
         catch (err) {
-            throw new app_errors_1.APIError('Cliente no encontrado', err);
+            return null;
         }
     }
     async AddSurveyToClient(surveyId, clientId) {

@@ -11,6 +11,7 @@ class ClientRepository {
     async CreateClient(values) {
         try {
             const client = exports.clientModel.create(values).then((Client) => Client.toObject());
+            console.log("Cliente creado", client);
             return client;
         }
         catch (err) {
@@ -18,7 +19,11 @@ class ClientRepository {
         }
     }
     async FindClientByUid(uid) {
-        return exports.clientModel.find({ uid: uid });
+        const client = await exports.clientModel.findOne({ uid: uid });
+        if (!client) {
+            return null;
+        }
+        return client;
     }
     async AddSurveyId(surveyId, clientId) {
         try {

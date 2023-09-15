@@ -10,5 +10,5 @@ export default (router: express.Router) => {
      
      router.get('/survey/client/:id', GetSurveysByClientId); 
    
-     router.get('/survey/state', UpdateSurveyState); 
+     router.post('/survey/state', UpdateSurveyState); 
 };

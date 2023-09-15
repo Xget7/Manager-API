@@ -47,14 +47,12 @@ export const CreateSurvey = async (req: express.Request, res: express.Response) 
 
       console.log("Survey data: " , machineData);
       const newSurvey = await machineService.CreateSurvey(machineData);
-      var client = clientService.FindClientById(client_id)
+      const client = await clientService.FindClientById(client_id)
 
-      if (client === null) {
+      if (!client) {
         // Client doesn't exist, so create a new client
-        await clientService.CreateClient({ uid: client_id, machines: [newSurvey._id.toString()] });
+        await clientService.CreateClient({ uid: client_id, machines: [newSurvey._id.toString()] });        
       }
-
-      // Add the survey to the client
       await clientService.AddSurveyToClient(newSurvey._id.toString(), client_id);
 
 
@@ -62,6 +60,7 @@ export const CreateSurvey = async (req: express.Request, res: express.Response) 
         clientId : newSurvey.clientId,
         reception: newSurvey.reception,
         machineSurvey: newSurvey.machineSurvey,
+        id : newSurvey._id.toString()
       };
   
       return res.status(200).json(modifiedResponse);
@@ -107,6 +106,8 @@ export const UpdateSurveyState = async (req: express.Request, res: express.Respo
     if (!updatedSurvey) {
       return res.status(404).json({ message: "No se ha podido actualizar la planilla." });
     }
+    console.log("Estado Actualizado con exito");
+    
 
     return res.status(200).json( {message : "Estado Actualizado con exito"});
   } catch (error) {

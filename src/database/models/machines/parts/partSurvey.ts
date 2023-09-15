@@ -1,15 +1,18 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
-export interface PartSurvey extends Document {
-  questions: string[];
-  observations: string;
-  photos: string[];
-}
+
 
 const partSurveySchema: Schema = new mongoose.Schema({
-  questions: [{ type: String }],
-  observations: { type: String },
-  photos: [{ type: String }],
+  name : {type : String} ,
+  diagnostic: [
+    {
+      question: { type: String },
+      response: { type: String },
+      photos: { type: String },
+    },
+  ],
+  observation: { type: String },
 });
+
 
 export default partSurveySchema;

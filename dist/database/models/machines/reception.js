@@ -8,8 +8,8 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const receptionSchema = new mongoose_1.default.Schema({
     machineName: { type: String, required: true },
     machineModel: { type: String, required: true },
-    receptionTime: { type: Date, required: true },
-    isForSale: { type: Date, required: true },
+    receptionTime: { type: String, required: true },
+    isForSale: { type: Boolean, required: true },
     workType: { type: String, enum: ['Maintenance', 'Repair'], required: true },
     machineStatus: { type: String, enum: ['Clean', 'Regular', 'Dirty'], required: true },
     powerCable: { type: Boolean, required: true },
@@ -23,12 +23,12 @@ const receptionSchema = new mongoose_1.default.Schema({
     observations: { type: Boolean },
     observationsComment: { type: String },
     approvedByClient: { type: Boolean },
-    creationDate: { type: Date },
-    creationTime: { type: Date },
+    receptionDate: { type: Date },
+    creationTime: { type: String },
     approvalDateTime: { type: Date },
     status: {
         type: String,
-        enum: ['BudgetSent', 'BudgetApproved', 'Working', 'Finished', 'Canceled'],
+        enum: ['BudgetSent', 'BudgetApproved', 'Working', 'Finished', 'Canceled', 'SurveyAproved'],
         required: true
     },
 }, {

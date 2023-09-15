@@ -2,18 +2,33 @@ import mongoose, { Schema } from 'mongoose';
 import partSurveySchema from './parts/partSurvey';
 
 
+enum MachineType {
+  FillingMachine = 'FillingMachine',
+  BagSealingMachine = 'BagSealingMachine',
+  InductionSealingMachine = 'InductionSealingMachine',
+  CappingMachine = 'CappingMachine',
+  DosingMachine = 'DosingMachine',
+  BagFormingMachine = 'BagFormingMachine',
+  LabelingMachine = 'LabelingMachine',
+}
+
 const machineSurveySchema: Schema = new mongoose.Schema({
     model: { type: String, required: true },
     newMachine: { type: Boolean, required: true },
     repair: { type: Boolean, required: true },
+    machineType: {
+      type: String,
+      enum: Object.values(MachineType),
+      required: true,
+    },
     machineStatus: { type: String, enum: ['Clean', 'Regular', 'Dirty'], required: true },
     startTime: { type: Date, required: true },
-    electricalPart: { type: partSurveySchema },
-    mechanicalPart: { type: partSurveySchema },
-    structuralPart: { type: partSurveySchema },
+    machineParts : {type: [partSurveySchema]},
     generalObservation : {type: String},
+    responsible : {type: String},
     endTime: { type: Date, required: true },
-  },{
+  },
+  {
     toJSON: {
       transform(doc, ret){
         delete ret.__v;
@@ -24,5 +39,6 @@ const machineSurveySchema: Schema = new mongoose.Schema({
   timestamps: false
 })
   
+
 
 export default machineSurveySchema;

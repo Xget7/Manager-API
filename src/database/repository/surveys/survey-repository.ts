@@ -24,7 +24,7 @@ class SurveyRepository {
         try {
           const updatedSurvey = await SurveyModel.findByIdAndUpdate(
             id,
-            { $set: { 'reception.machineStatus': newState } },
+            { $set: { 'reception.status': newState } },
             { new: true } 
           );
     

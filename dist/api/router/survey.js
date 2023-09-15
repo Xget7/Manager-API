@@ -7,6 +7,6 @@ exports.default = (router) => {
     router.put('/survey/:id', survey_1.UpdateSurvey);
     router.get('/survey', survey_1.GetAllSurveys);
     router.get('/survey/client/:id', survey_1.GetSurveysByClientId);
-    router.get('/survey/state', survey_1.UpdateSurveyState);
+    router.post('/survey/state', survey_1.UpdateSurveyState);
 };
 //# sourceMappingURL=survey.js.map

@@ -22,7 +22,7 @@ class SurveyRepository {
     }
     async changeSurveyState(id, newState) {
         try {
-            const updatedSurvey = await exports.SurveyModel.findByIdAndUpdate(id, { $set: { 'reception.machineStatus': newState } }, { new: true });
+            const updatedSurvey = await exports.SurveyModel.findByIdAndUpdate(id, { $set: { 'reception.status': newState } }, { new: true });
             return updatedSurvey ? updatedSurvey.toObject() : null;
         }
         catch (err) {
