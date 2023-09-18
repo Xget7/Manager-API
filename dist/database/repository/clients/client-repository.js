@@ -10,7 +10,7 @@ exports.clientModel = mongoose_1.default.model('Client', client_1.ClientSchema);
 class ClientRepository {
     async CreateClient(values) {
         try {
-            const client = exports.clientModel.create(values).then((Client) => Client.toObject());
+            const client = await exports.clientModel.create(values).then((Client) => Client.toObject());
             console.log("Cliente creado", client);
             return client;
         }
@@ -40,6 +40,16 @@ class ClientRepository {
         catch (err) {
             console.log("Error al agregar la ID de survey:", err);
             throw err; // Puedes lanzar el error para manejarlo en un nivel superior
+        }
+    }
+    async GetAllClients() {
+        try {
+            const clients = await exports.clientModel.find();
+            return clients;
+        }
+        catch (err) {
+            console.log("Error getting clients:", err);
+            throw err;
         }
     }
 }

@@ -7,9 +7,12 @@ export const clientModel = mongoose.model('Client', ClientSchema);
 
 class ClientRepository {
 
+
+    
+
   async CreateClient(values: Record<string, any>) {
         try {
-            const client = clientModel.create(values).then((Client) => Client.toObject());
+            const client = await clientModel.create(values).then((Client) => Client.toObject());
             console.log("Cliente creado", client);
             return client
         } catch (err) {
@@ -33,9 +36,6 @@ class ClientRepository {
                 console.log("Cliente no encontrado.");
                 throw Error("Cliente no encontrado");
             }
-
-
-
             // Agregar la nueva ID de encuesta al array de encuestas del cliente
             client.machines.push(surveyId);
             await client.save();
@@ -44,7 +44,17 @@ class ClientRepository {
             console.log("Error al agregar la ID de survey:", err);
             throw err; // Puedes lanzar el error para manejarlo en un nivel superior
         }
-    
+    }
+
+
+    async GetAllClients() {
+        try {
+            const clients = await clientModel.find()
+            return clients
+        } catch (err) {
+            console.log("Error getting clients:", err);
+            throw err
+        }
     }
 }
 

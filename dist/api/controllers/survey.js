@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GetSurveysByClientId = exports.GetAllSurveys = exports.UpdateSurveyState = exports.UpdateSurvey = exports.CreateSurvey = exports.GetSurvey = void 0;
 const survey_service_1 = __importDefault(require("../../services/survey-service"));
 const client_service_1 = __importDefault(require("../../services/client-service"));
+const mongoose = require('mongoose');
 const machineService = new survey_service_1.default();
 const clientService = new client_service_1.default();
 const GetSurvey = async (req, res) => {
@@ -28,23 +29,23 @@ const GetSurvey = async (req, res) => {
 exports.GetSurvey = GetSurvey;
 const CreateSurvey = async (req, res) => {
     try {
-        const { reception, machineSurvey, client_id } = req.body; // Adjust the field names accordingly
+        const { reception, machineSurvey, clientId } = req.body; // Adjust the field names accordingly
         if (!reception) {
             return res.status(400).json({ message: "Faltan campos obligatorios" });
         }
         const machineData = {
-            clientId: client_id,
+            clientId: clientId,
             reception: reception,
             machineSurvey: machineSurvey || null, // Adjust for your schema
         };
         console.log("Survey data: ", machineData);
         const newSurvey = await machineService.CreateSurvey(machineData);
-        const client = await clientService.FindClientById(client_id);
+        const client = await clientService.FindClientById(clientId);
         if (!client) {
             // Client doesn't exist, so create a new client
-            await clientService.CreateClient({ uid: client_id, machines: [newSurvey._id.toString()] });
+            await clientService.CreateClient({ uid: clientId, machines: [newSurvey._id.toString()] });
         }
-        await clientService.AddSurveyToClient(newSurvey._id.toString(), client_id);
+        await clientService.AddSurveyToClient(newSurvey._id.toString(), clientId);
         const modifiedResponse = {
             clientId: newSurvey.clientId,
             reception: newSurvey.reception,
@@ -61,11 +62,12 @@ const CreateSurvey = async (req, res) => {
 exports.CreateSurvey = CreateSurvey;
 const UpdateSurvey = async (req, res) => {
     try {
-        const id = req.params.id;
+        const id = new mongoose.Types.ObjectId(req.params.id);
         const updateData = req.body;
         if (!id) {
             return res.status(400).json({ message: "Faltan campos obligatorios" });
         }
+        console.log("Updating data:", req.body);
         const updatedSurvey = await machineService.UpdateSurveyById(id, updateData);
         if (!updatedSurvey) {
             return res.status(404).json({ message: "No se ha podido actualizar la planilla." });

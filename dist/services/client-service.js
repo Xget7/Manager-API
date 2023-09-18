@@ -29,6 +29,15 @@ class ClientService {
             return null;
         }
     }
+    async GetAllClients() {
+        try {
+            const clients = await this.repository.GetAllClients();
+            return clients;
+        }
+        catch (err) {
+            return null;
+        }
+    }
     async AddSurveyToClient(surveyId, clientId) {
         try {
             const existingClient = await this.repository.AddSurveyId(surveyId, clientId);

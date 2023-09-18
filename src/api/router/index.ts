@@ -1,14 +1,15 @@
 import express  from 'express';
 import authentication  from './auth';
 import user  from './user';
-import store  from './survey';
-
+import survey  from './survey';
+import client  from './client';
 
 const router = express.Router();
 
 export default (): express.Router => {
      authentication(router);
      user(router);
-     store(router);
+     survey(router);
+     client(router);
      return router;
 }

@@ -1,5 +1,7 @@
 import SurveyRepository from '../database/repository/surveys/survey-repository';
 import { APIError, BadRequestError } from '../utils/app-errors';
+import { EventBridgeClient } from '@aws-sdk/client-eventbridge';
+
 
 class MachineService {
      private repository: SurveyRepository;
@@ -73,6 +75,8 @@ class MachineService {
                throw new APIError('Error al intentar actualizar planilla.', err);
           }
      }
+
+     
 
 
 

@@ -10,23 +10,24 @@ enum MachineType {
   DosingMachine = 'DosingMachine',
   BagFormingMachine = 'BagFormingMachine',
   LabelingMachine = 'LabelingMachine',
+  HotStampingMachine = 'HotStampingMachine',
 }
 
 const machineSurveySchema: Schema = new mongoose.Schema({
-    model: { type: String, required: true },
-    newMachine: { type: Boolean, required: true },
-    repair: { type: Boolean, required: true },
+    model: { type: String, required: false },
+    newMachine: { type: Boolean},
+    repair: { type: Boolean },
     machineType: {
       type: String,
       enum: Object.values(MachineType),
-      required: true,
     },
-    machineStatus: { type: String, enum: ['Clean', 'Regular', 'Dirty'], required: true },
-    startTime: { type: Date, required: true },
+    machineStatus: { type: String, enum: ['Clean', 'Regular', 'Dirty']},
+    startTime: { type: Date },
     machineParts : {type: [partSurveySchema]},
     generalObservation : {type: String},
-    responsible : {type: String},
-    endTime: { type: Date, required: true },
+    responsibleWorker : {type: String},
+    responsibleManager: {type: String},
+    endTime: { type: Date },
   },
   {
     toJSON: {

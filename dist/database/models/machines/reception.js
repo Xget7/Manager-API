@@ -24,7 +24,7 @@ const receptionSchema = new mongoose_1.default.Schema({
     observationsComment: { type: String },
     approvedByClient: { type: Boolean },
     receptionDate: { type: Date },
-    creationTime: { type: String },
+    creationTime: { type: Date },
     approvalDateTime: { type: Date },
     status: {
         type: String,

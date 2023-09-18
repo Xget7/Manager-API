@@ -7,11 +7,13 @@ const express_1 = __importDefault(require("express"));
 const auth_1 = __importDefault(require("./auth"));
 const user_1 = __importDefault(require("./user"));
 const survey_1 = __importDefault(require("./survey"));
+const client_1 = __importDefault(require("./client"));
 const router = express_1.default.Router();
 exports.default = () => {
     (0, auth_1.default)(router);
     (0, user_1.default)(router);
     (0, survey_1.default)(router);
+    (0, client_1.default)(router);
     return router;
 };
 //# sourceMappingURL=index.js.map

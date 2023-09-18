@@ -10,6 +10,7 @@ const partSurveySchema = new mongoose_1.default.Schema({
         {
             question: { type: String },
             response: { type: String },
+            option: { type: Boolean },
             photos: { type: String },
         },
     ],
