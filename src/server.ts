@@ -6,8 +6,10 @@ import compression from 'compression';
 import cors from 'cors';
 import { connectToDatabase } from './database/connection';
 import router from './api/router/index';
-
 import {config} from './config/index'
+import AWS from 'aws-sdk';
+import RulesService from './services/rules-service';
+
 
 const app = express();
 app.use(cors({
@@ -18,9 +20,15 @@ app.use(compression());
 app.use(cookieParser());
 app.use(bodyParser.json());
 
-
-
 const server = http.createServer(app);
+
+AWS.config.update({
+  accessKeyId: config.AWS_ACCESS_KEY,
+  secretAccessKey: config.AWS_PRIVATE_ACCESS_KEY,
+  region: config.REGION,
+  apiVersion: 'latest',
+});
+
 
 connectToDatabase()
   .then(() => {

@@ -63,12 +63,16 @@ exports.CreateSurvey = CreateSurvey;
 const UpdateSurvey = async (req, res) => {
     try {
         const id = new mongoose.Types.ObjectId(req.params.id);
-        const updateData = req.body;
+        var updateData = req.body;
         if (!id) {
             return res.status(400).json({ message: "Faltan campos obligatorios" });
         }
-        console.log("Updating data:", req.body);
+        if (!updateData.reception.responsibleWorkerId && updateData.reception.status == "BudgetApproved") {
+            updateData.reception.status = "Working";
+        }
+        console.log("Updating data with changes:", updateData);
         const updatedSurvey = await machineService.UpdateSurveyById(id, updateData);
+        //trigger lamda to create cron job for machine test 
         if (!updatedSurvey) {
             return res.status(404).json({ message: "No se ha podido actualizar la planilla." });
         }

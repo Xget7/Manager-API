@@ -25,12 +25,15 @@ const machineSurveySchema = new mongoose_1.default.Schema({
         enum: Object.values(MachineType),
     },
     machineStatus: { type: String, enum: ['Clean', 'Regular', 'Dirty'] },
-    startTime: { type: Date },
+    startTime: { type: String },
+    startDate: { type: Date },
     machineParts: { type: [partSurvey_1.default] },
     generalObservation: { type: String },
     responsibleWorker: { type: String },
+    responsibleWorkerId: { type: String },
     responsibleManager: { type: String },
-    endTime: { type: Date },
+    endDate: { type: Date },
+    endTime: { type: String },
 }, {
     toJSON: {
         transform(doc, ret) {

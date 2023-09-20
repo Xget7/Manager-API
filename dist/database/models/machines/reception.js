@@ -28,7 +28,7 @@ const receptionSchema = new mongoose_1.default.Schema({
     approvalDateTime: { type: Date },
     status: {
         type: String,
-        enum: ['BudgetSent', 'BudgetApproved', 'Working', 'Finished', 'Canceled', 'SurveyAproved'],
+        enum: ['BudgetSent', 'BudgetApproved', 'Working', 'Finished', 'Canceled', 'SurveyApproved'],
         required: true
     },
 }, {

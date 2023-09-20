@@ -73,14 +73,18 @@ export const CreateSurvey = async (req: express.Request, res: express.Response) 
 export const UpdateSurvey = async (req: express.Request, res: express.Response) => {
   try {
     const id = new mongoose.Types.ObjectId(req.params.id);
-    const updateData = req.body;
+    var updateData = req.body;
 
     if (!id) {
       return res.status(400).json({ message: "Faltan campos obligatorios" });
     }
 
-    console.log("Updating data:", req.body);
-    
+ 
+    if (!updateData.reception.responsibleWorkerId && updateData.reception.status == "BudgetApproved" ) {
+        updateData.reception.status = "Working";
+    }
+
+    console.log("Updating data with changes:", updateData);
 
     const updatedSurvey = await machineService.UpdateSurveyById(id, updateData);
 

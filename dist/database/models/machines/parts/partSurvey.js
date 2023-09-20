@@ -4,16 +4,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
+const diagnosticSchema = new mongoose_1.default.Schema({
+    question: { type: String },
+    response: { type: String },
+    option: { type: Boolean },
+    photos: [{ type: String }],
+});
 const partSurveySchema = new mongoose_1.default.Schema({
     name: { type: String },
-    diagnostic: [
-        {
-            question: { type: String },
-            response: { type: String },
-            option: { type: Boolean },
-            photos: { type: String },
-        },
-    ],
+    diagnostic: [diagnosticSchema],
     observation: { type: String },
 });
 exports.default = partSurveySchema;

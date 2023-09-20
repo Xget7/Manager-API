@@ -12,6 +12,7 @@ const cors_1 = __importDefault(require("cors"));
 const connection_1 = require("./database/connection");
 const index_1 = __importDefault(require("./api/router/index"));
 const index_2 = require("./config/index");
+const aws_sdk_1 = __importDefault(require("aws-sdk"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)({
     credentials: true,
@@ -20,6 +21,12 @@ app.use((0, compression_1.default)());
 app.use((0, cookie_parser_1.default)());
 app.use(body_parser_1.default.json());
 const server = http_1.default.createServer(app);
+aws_sdk_1.default.config.update({
+    accessKeyId: index_2.config.AWS_ACCESS_KEY,
+    secretAccessKey: index_2.config.AWS_PRIVATE_ACCESS_KEY,
+    region: index_2.config.REGION,
+    apiVersion: 'latest',
+});
 (0, connection_1.connectToDatabase)()
     .then(() => {
     app.use('/', (0, index_1.default)());
