@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && node dist/server.js"
+    "start": "tsc && node --max-old-space-size=2040 dist/server.js"
   },
   "keywords": [],
   "author": "",
